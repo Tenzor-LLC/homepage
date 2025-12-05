@@ -15,7 +15,7 @@ import {
 import { useState } from "react";
 import { ImageWithFallback } from "@/components/figma/ImageWithFallback";
 import { motion, useScroll, useTransform } from "framer-motion";
-
+import Link from "next/link";
 // Reusable parallax wrapper
 function ParallaxSection({
   children,
@@ -164,13 +164,19 @@ export default function Page() {
                   unlock real business efficiency.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <button className="bg-[#1e293b] text-white px-8 py-3 rounded-lg hover:bg-[#334155] transition flex items-center justify-center gap-2">
+                  <Link
+                    href="#products"
+                    className="inline-flex items-center justify-center bg-[#1e293b] text-white px-8 py-3 rounded-lg hover:bg-[#334155] transition gap-2"
+                  >
                     Explore Products
                     <ArrowRight className="w-5 h-5" />
-                  </button>
-                  <button className="border-2 border-[#B8D8D8] text-[#1e293b] px-8 py-3 rounded-lg hover:bg-[#B8D8D8] transition">
+                  </Link>
+                  <Link
+                    href="#contact"
+                    className="inline-flex items-center justify-center border-2 border-[#B8D8D8] text-[#1e293b] px-8 py-3 rounded-lg hover:bg-[#B8D8D8] transition"
+                  >
                     Learn More
-                  </button>
+                  </Link>
                 </div>
               </div>
               <div className="relative">
@@ -501,6 +507,7 @@ export default function Page() {
                     viewBox="0 0 1490 479"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
+                    className="w-40 h-auto flex-shrink-0"
                   >
                     <path
                       d="M217.193 10.0027C229.649 46.7203 255.79 65.6079 288.587 81.3969"
@@ -540,23 +547,8 @@ export default function Page() {
                 <h4 className="mb-4">Products</h4>
                 <ul className="space-y-2 text-gray-400">
                   <li>
-                    <a href="#" className="hover:text-white transition">
-                      Enterprise Suite
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" className="hover:text-white transition">
-                      Cloud Platform
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" className="hover:text-white transition">
-                      Analytics Tools
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" className="hover:text-white transition">
-                      Security Suite
+                    <a href="#products" className="hover:text-white transition">
+                      Wolf POS
                     </a>
                   </li>
                 </ul>
@@ -565,7 +557,7 @@ export default function Page() {
                 <h4 className="mb-4">Company</h4>
                 <ul className="space-y-2 text-gray-400">
                   <li>
-                    <a href="#" className="hover:text-white transition">
+                    <a href="#contact" className="hover:text-white transition">
                       About Us
                     </a>
                   </li>
@@ -580,7 +572,7 @@ export default function Page() {
                     </a>
                   </li>
                   <li>
-                    <a href="#" className="hover:text-white transition">
+                    <a href="#contact" className="hover:text-white transition">
                       Contact
                     </a>
                   </li>
@@ -590,29 +582,21 @@ export default function Page() {
                 <h4 className="mb-4">Connect</h4>
                 <div className="flex gap-4">
                   <a
-                    href="#"
+                    href="https://github.com/Tenzor-LLC"
                     className="text-gray-400 hover:text-white transition"
                   >
                     <Github className="w-6 h-6" />
                   </a>
                   <a
-                    href="#"
+                    href="https://www.linkedin.com/company/tenzor-llc/"
                     className="text-gray-400 hover:text-white transition"
                   >
                     <Linkedin className="w-6 h-6" />
                   </a>
-                  <a
-                    href="#"
-                    className="text-gray-400 hover:text-white transition"
-                  >
-                    <Twitter className="w-6 h-6" />
-                  </a>
                 </div>
               </div>
             </div>
-            <div className="border-t border-[#B8D8D8]/30 pt-8 text-center text-gray-400">
-              <p>&copy; 2025 Tenzor LLC. All rights reserved.</p>
-            </div>
+            <div className="border-t border-[#B8D8D8]/30 pt-8 text-center text-gray-400"></div>
           </div>
         </footer>
       </ParallaxSection>
