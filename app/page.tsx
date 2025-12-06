@@ -15,7 +15,7 @@ import {
 import { useState } from "react";
 import { ImageWithFallback } from "@/components/figma/ImageWithFallback";
 import { motion, useScroll, useTransform } from "framer-motion";
-
+import Link from "next/link";
 // Reusable parallax wrapper
 function ParallaxSection({
   children,
@@ -36,6 +36,132 @@ function ParallaxSection({
 
 export default function Page() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    challenge: "",
+    name: "",
+    email: "",
+    phone: "",
+    company: "",
+    nda: false,
+    privacy: false,
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState("");
+
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value, type } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]:
+        type === "checkbox" ? (e.target as HTMLInputElement).checked : value,
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitMessage("");
+
+    // Validate required fields
+    if (!formData.challenge || !formData.name || !formData.email) {
+      setSubmitMessage("Please fill out all required fields.");
+      setIsSubmitting(false);
+      return;
+    }
+
+    // Discord webhook URL - replace with your actual webhook URL
+    const webhookUrl = process.env.NEXT_PUBLIC_DISCORD_WEBHOOK_URL;
+
+    if (!webhookUrl) {
+      setSubmitMessage("Discord webhook is not configured.");
+      setIsSubmitting(false);
+      return;
+    }
+
+    // Create Discord embed message
+    const discordPayload = {
+      embeds: [
+        {
+          title: "🆕 New Contact Form Submission",
+          color: 0x3b82f6, // Blue color
+          fields: [
+            {
+              name: "📝 Challenge/Goal",
+              value: formData.challenge,
+              inline: false,
+            },
+            {
+              name: "👤 Name",
+              value: formData.name,
+              inline: true,
+            },
+            {
+              name: "📧 Email",
+              value: formData.email,
+              inline: true,
+            },
+            {
+              name: "📞 Phone",
+              value: formData.phone || "Not provided",
+              inline: true,
+            },
+            {
+              name: "🏢 Company",
+              value: formData.company || "Not provided",
+              inline: true,
+            },
+            {
+              name: "🔒 NDA Required",
+              value: formData.nda ? "Yes" : "No",
+              inline: true,
+            },
+            {
+              name: "✅ Privacy Consent",
+              value: formData.privacy ? "Yes" : "No",
+              inline: true,
+            },
+          ],
+          timestamp: new Date().toISOString(),
+          footer: {
+            text: "Tenzor LLC Contact Form",
+          },
+        },
+      ],
+    };
+
+    try {
+      const response = await fetch(webhookUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(discordPayload),
+      });
+
+      if (response.ok) {
+        setSubmitMessage("✅ Message sent successfully! We'll be in touch soon.");
+        // Reset form
+        setFormData({
+          challenge: "",
+          name: "",
+          email: "",
+          phone: "",
+          company: "",
+          nda: false,
+          privacy: false,
+        });
+      } else {
+        setSubmitMessage("❌ Failed to send message. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error sending to Discord:", error);
+      setSubmitMessage("❌ An error occurred. Please try again later.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -164,13 +290,19 @@ export default function Page() {
                   unlock real business efficiency.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <button className="bg-[#1e293b] text-white px-8 py-3 rounded-lg hover:bg-[#334155] transition flex items-center justify-center gap-2">
+                  <Link
+                    href="#products"
+                    className="inline-flex items-center justify-center bg-[#1e293b] text-white px-8 py-3 rounded-lg hover:bg-[#334155] transition gap-2"
+                  >
                     Explore Products
                     <ArrowRight className="w-5 h-5" />
-                  </button>
-                  <button className="border-2 border-[#B8D8D8] text-[#1e293b] px-8 py-3 rounded-lg hover:bg-[#B8D8D8] transition">
+                  </Link>
+                  <Link
+                    href="#contact"
+                    className="inline-flex items-center justify-center border-2 border-[#B8D8D8] text-[#1e293b] px-8 py-3 rounded-lg hover:bg-[#B8D8D8] transition"
+                  >
                     Learn More
-                  </button>
+                  </Link>
                 </div>
               </div>
               <div className="relative">
@@ -255,56 +387,100 @@ export default function Page() {
                         Our team would love to hear from you.
                       </p>
 
-                      <form className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                      <form
+                        onSubmit={handleSubmit}
+                        className="grid grid-cols-1 md:grid-cols-2 gap-5"
+                      >
                         <textarea
+                          name="challenge"
+                          value={formData.challenge}
+                          onChange={handleInputChange}
                           placeholder="Your challenge / goal *"
+                          required
                           className="col-span-1 md:col-span-2 p-4 rounded-xl border dark:border-gray-700 bg-white dark:bg-gray-800 dark:text-gray-200"
                         />
 
                         <input
                           type="text"
+                          name="name"
+                          value={formData.name}
+                          onChange={handleInputChange}
                           placeholder="Name *"
+                          required
                           className="p-4 rounded-xl border dark:border-gray-700 bg-white dark:bg-gray-800 dark:text-gray-200"
                         />
 
                         <input
                           type="email"
+                          name="email"
+                          value={formData.email}
+                          onChange={handleInputChange}
                           placeholder="Corporate email *"
+                          required
                           className="p-4 rounded-xl border dark:border-gray-700 bg-white dark:bg-gray-800 dark:text-gray-200"
                         />
 
                         <input
                           type="text"
+                          name="phone"
+                          value={formData.phone}
+                          onChange={handleInputChange}
                           placeholder="Phone number"
                           className="p-4 rounded-xl border dark:border-gray-700 bg-white dark:bg-gray-800 dark:text-gray-200"
                         />
 
                         <input
                           type="text"
+                          name="company"
+                          value={formData.company}
+                          onChange={handleInputChange}
                           placeholder="Company"
                           className="p-4 rounded-xl border dark:border-gray-700 bg-white dark:bg-gray-800 dark:text-gray-200"
                         />
 
                         <label className="flex items-center space-x-2 col-span-1 md:col-span-2 text-gray-700 dark:text-gray-300">
-                          <input type="checkbox" />{" "}
+                          <input
+                            type="checkbox"
+                            name="nda"
+                            checked={formData.nda}
+                            onChange={handleInputChange}
+                          />{" "}
                           <span>Secure data with NDA first</span>
                         </label>
 
                         <label className="flex items-center space-x-2 col-span-1 md:col-span-2 text-gray-700 dark:text-gray-300">
-                          <input type="checkbox" />
+                          <input
+                            type="checkbox"
+                            name="privacy"
+                            checked={formData.privacy}
+                            onChange={handleInputChange}
+                          />
                           <span>
                             I consent to the processing of personal data as per
                             the Privacy Policy.
                           </span>
                         </label>
 
+                        {submitMessage && (
+                          <div
+                            className={`col-span-1 md:col-span-2 p-4 rounded-xl ${
+                              submitMessage.includes("✅")
+                                ? "bg-green-50 text-green-800 dark:bg-green-900/20 dark:text-green-300"
+                                : "bg-red-50 text-red-800 dark:bg-red-900/20 dark:text-red-300"
+                            }`}
+                          >
+                            {submitMessage}
+                          </div>
+                        )}
+
                         <motion.button
                           whileHover={{ scale: 1.03 }}
                           whileTap={{ scale: 0.97 }}
                           type="submit"
-                          className="col-span-1 md:col-span-2 bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-xl text-lg shadow-md"
+                          disabled={isSubmitting}
+                          className="col-span-1 md:col-span-2 bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-xl text-lg shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
                         >
-                          Send message
+                          {isSubmitting ? "Sending..." : "Send message"}
                         </motion.button>
                       </form>
                     </div>
@@ -501,6 +677,7 @@ export default function Page() {
                     viewBox="0 0 1490 479"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
+                    className="w-40 h-auto flex-shrink-0"
                   >
                     <path
                       d="M217.193 10.0027C229.649 46.7203 255.79 65.6079 288.587 81.3969"
@@ -540,23 +717,8 @@ export default function Page() {
                 <h4 className="mb-4">Products</h4>
                 <ul className="space-y-2 text-gray-400">
                   <li>
-                    <a href="#" className="hover:text-white transition">
-                      Enterprise Suite
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" className="hover:text-white transition">
-                      Cloud Platform
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" className="hover:text-white transition">
-                      Analytics Tools
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" className="hover:text-white transition">
-                      Security Suite
+                    <a href="#products" className="hover:text-white transition">
+                      Wolf POS
                     </a>
                   </li>
                 </ul>
@@ -565,7 +727,7 @@ export default function Page() {
                 <h4 className="mb-4">Company</h4>
                 <ul className="space-y-2 text-gray-400">
                   <li>
-                    <a href="#" className="hover:text-white transition">
+                    <a href="#contact" className="hover:text-white transition">
                       About Us
                     </a>
                   </li>
@@ -580,7 +742,7 @@ export default function Page() {
                     </a>
                   </li>
                   <li>
-                    <a href="#" className="hover:text-white transition">
+                    <a href="#contact" className="hover:text-white transition">
                       Contact
                     </a>
                   </li>
@@ -590,29 +752,21 @@ export default function Page() {
                 <h4 className="mb-4">Connect</h4>
                 <div className="flex gap-4">
                   <a
-                    href="#"
+                    href="https://github.com/Tenzor-LLC"
                     className="text-gray-400 hover:text-white transition"
                   >
                     <Github className="w-6 h-6" />
                   </a>
                   <a
-                    href="#"
+                    href="https://www.linkedin.com/company/tenzor-llc/"
                     className="text-gray-400 hover:text-white transition"
                   >
                     <Linkedin className="w-6 h-6" />
                   </a>
-                  <a
-                    href="#"
-                    className="text-gray-400 hover:text-white transition"
-                  >
-                    <Twitter className="w-6 h-6" />
-                  </a>
                 </div>
               </div>
             </div>
-            <div className="border-t border-[#B8D8D8]/30 pt-8 text-center text-gray-400">
-              <p>&copy; 2025 Tenzor LLC. All rights reserved.</p>
-            </div>
+            <div className="border-t border-[#B8D8D8]/30 pt-8 text-center text-gray-400"></div>
           </div>
         </footer>
       </ParallaxSection>
