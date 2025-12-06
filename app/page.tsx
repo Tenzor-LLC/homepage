@@ -326,7 +326,7 @@ export default function Page() {
       {/* Contact / Gradient Block (stronger parallax) */}
       <ParallaxSection speed={-140}>
         <div className="w-full bg-white dark:bg-gray-900" id="contact">
-          <div className="bg-gradient-to-b from-white to-teal-50 dark:from-gray-900 dark:to-gray-800 pt-24 pb-10">
+          <div className="bg-linear-to-b from-white to-teal-50 dark:from-gray-900 dark:to-gray-800 pt-24 pb-10">
             <div className="max-w-7xl mx-auto px-4 md:px-8">
               <div className="flex flex-col md:flex-row rounded-3xl bg-white dark:bg-gray-850 shadow-xl overflow-hidden">
                 <section className="w-full">
@@ -570,7 +570,7 @@ export default function Page() {
             </div>
 
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-gradient-to-br from-[#B8D8D8]/30 to-[#B8D8D8]/50 p-8 rounded-2xl border-2 border-[#B8D8D8]">
+              <div className="bg-linear-to-br from-[#B8D8D8]/30 to-[#B8D8D8]/50 p-8 rounded-2xl border-2 border-[#B8D8D8]">
                 <div className="bg-white w-16 h-16 rounded-xl flex items-center justify-center mb-6 shadow-sm">
                   <Code className="w-8 h-8 text-[#1e293b]" />
                 </div>
@@ -677,7 +677,7 @@ export default function Page() {
                     viewBox="0 0 1490 479"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
-                    className="w-40 h-auto flex-shrink-0"
+                    className="w-40 h-auto shrink-0"
                   >
                     <path
                       d="M217.193 10.0027C229.649 46.7203 255.79 65.6079 288.587 81.3969"
