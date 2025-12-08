@@ -209,9 +209,6 @@ export default function Page() {
               >
                 Contact
               </a>
-              <button className="bg-[#1e293b] text-white px-6 py-2 rounded-lg hover:bg-[#334155] transition">
-                Get Started
-              </button>
             </div>
 
             {/* Mobile menu button */}
@@ -308,7 +305,7 @@ export default function Page() {
               <div className="relative">
                 <div className="aspect-square rounded-2xl overflow-hidden shadow-2xl">
                   <ImageWithFallback
-                    src="https://images.unsplash.com/photo-1643881079052-11e752e3ae16?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzb2Z0d2FyZSUyMGRldmVsb3BtZW50JTIwb2ZmaWNlfGVufDF8fHx8MTc2NDcyMDMyNHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+                    src="office.jpg"
                     alt="Software development workspace"
                     className="w-full h-full object-cover"
                   />
@@ -463,11 +460,10 @@ export default function Page() {
 
                         {submitMessage && (
                           <div
-                            className={`col-span-1 md:col-span-2 p-4 rounded-xl ${
-                              submitMessage.includes("✅")
+                            className={`col-span-1 md:col-span-2 p-4 rounded-xl ${submitMessage.includes("✅")
                                 ? "bg-green-50 text-green-800 dark:bg-green-900/20 dark:text-green-300"
                                 : "bg-red-50 text-red-800 dark:bg-red-900/20 dark:text-red-300"
-                            }`}
+                              }`}
                           >
                             {submitMessage}
                           </div>
@@ -677,7 +673,7 @@ export default function Page() {
                     viewBox="0 0 1490 479"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
-                    className="w-40 h-auto shrink-0"
+                    className="w-40 h-auto shrink-0 text-[#1B1C42]"
                   >
                     <path
                       d="M217.193 10.0027C229.649 46.7203 255.79 65.6079 288.587 81.3969"
