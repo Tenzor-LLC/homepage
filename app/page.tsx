@@ -141,7 +141,9 @@ export default function Page() {
       });
 
       if (response.ok) {
-        setSubmitMessage("✅ Message sent successfully! We'll be in touch soon.");
+        setSubmitMessage(
+          "✅ Message sent successfully! We'll be in touch soon."
+        );
         // Reset form
         setFormData({
           challenge: "",
@@ -209,9 +211,6 @@ export default function Page() {
               >
                 Contact
               </a>
-              <button className="bg-[#1e293b] text-white px-6 py-2 rounded-lg hover:bg-[#334155] transition">
-                Get Started
-              </button>
             </div>
 
             {/* Mobile menu button */}
@@ -308,14 +307,14 @@ export default function Page() {
               <div className="relative">
                 <div className="aspect-square rounded-2xl overflow-hidden shadow-2xl">
                   <ImageWithFallback
-                    src="https://images.unsplash.com/photo-1643881079052-11e752e3ae16?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzb2Z0d2FyZSUyMGRldmVsb3BtZW50JTIwb2ZmaWNlfGVufDF8fHx8MTc2NDcyMDMyNHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+                    src="office.jpg"
                     alt="Software development workspace"
                     className="w-full h-full object-cover"
                   />
                 </div>
                 <div className="absolute -bottom-6 -left-6 bg-[#B8D8D8] p-6 rounded-xl shadow-xl">
-                  <div className="text-4xl text-[#1e293b] mb-1">Recognized</div>
-                  <div className="text-[#1e293b]">By Wolf Fitness</div>
+                  <div className="text-4xl text-[#1e293b] mb-1">Designed</div>
+                  <div className="text-[#1e293b]">For Scale</div>
                 </div>
               </div>
             </div>
@@ -630,16 +629,16 @@ export default function Page() {
                 </p>
                 <div className="grid grid-cols-3 gap-6">
                   <div>
-                    <div className="text-3xl text-[#1e293b] mb-2">8+</div>
-                    <div className="text-gray-600">Years Experienced</div>
-                  </div>
-                  <div>
                     <div className="text-3xl text-[#1e293b] mb-2">4</div>
-                    <div className="text-gray-600">Team Members</div>
+                    <div className="text-gray-600">Builders</div>
                   </div>
                   <div>
                     <div className="text-3xl text-[#1e293b] mb-2">1</div>
-                    <div className="text-gray-600">Vision</div>
+                    <div className="text-gray-600">Mission</div>
+                  </div>
+                  <div>
+                    <div className="text-3xl text-[#1e293b] mb-2">100%</div>
+                    <div className="text-gray-600">Bootstrapped</div>
                   </div>
                 </div>
               </div>
@@ -677,7 +676,7 @@ export default function Page() {
                     viewBox="0 0 1490 479"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
-                    className="w-40 h-auto shrink-0"
+                    className="w-40 h-auto shrink-0 text-[#1B1C42]"
                   >
                     <path
                       d="M217.193 10.0027C229.649 46.7203 255.79 65.6079 288.587 81.3969"
