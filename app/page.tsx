@@ -141,7 +141,9 @@ export default function Page() {
       });
 
       if (response.ok) {
-        setSubmitMessage("✅ Message sent successfully! We'll be in touch soon.");
+        setSubmitMessage(
+          "✅ Message sent successfully! We'll be in touch soon."
+        );
         // Reset form
         setFormData({
           challenge: "",
@@ -311,8 +313,8 @@ export default function Page() {
                   />
                 </div>
                 <div className="absolute -bottom-6 -left-6 bg-[#B8D8D8] p-6 rounded-xl shadow-xl">
-                  <div className="text-4xl text-[#1e293b] mb-1">Recognized</div>
-                  <div className="text-[#1e293b]">By Wolf Fitness</div>
+                  <div className="text-4xl text-[#1e293b] mb-1">Designed</div>
+                  <div className="text-[#1e293b]">For Scale</div>
                 </div>
               </div>
             </div>
@@ -460,10 +462,11 @@ export default function Page() {
 
                         {submitMessage && (
                           <div
-                            className={`col-span-1 md:col-span-2 p-4 rounded-xl ${submitMessage.includes("✅")
+                            className={`col-span-1 md:col-span-2 p-4 rounded-xl ${
+                              submitMessage.includes("✅")
                                 ? "bg-green-50 text-green-800 dark:bg-green-900/20 dark:text-green-300"
                                 : "bg-red-50 text-red-800 dark:bg-red-900/20 dark:text-red-300"
-                              }`}
+                            }`}
                           >
                             {submitMessage}
                           </div>
@@ -626,16 +629,16 @@ export default function Page() {
                 </p>
                 <div className="grid grid-cols-3 gap-6">
                   <div>
-                    <div className="text-3xl text-[#1e293b] mb-2">8+</div>
-                    <div className="text-gray-600">Years Experienced</div>
-                  </div>
-                  <div>
                     <div className="text-3xl text-[#1e293b] mb-2">4</div>
-                    <div className="text-gray-600">Team Members</div>
+                    <div className="text-gray-600">Builders</div>
                   </div>
                   <div>
                     <div className="text-3xl text-[#1e293b] mb-2">1</div>
-                    <div className="text-gray-600">Vision</div>
+                    <div className="text-gray-600">Mission</div>
+                  </div>
+                  <div>
+                    <div className="text-3xl text-[#1e293b] mb-2">100%</div>
+                    <div className="text-gray-600">Bootstrapped</div>
                   </div>
                 </div>
               </div>
