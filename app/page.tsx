@@ -307,7 +307,7 @@ export default function Page() {
               <div className="relative">
                 <div className="aspect-square rounded-2xl overflow-hidden shadow-2xl">
                   <ImageWithFallback
-                    src="office.jpg"
+                    src="office.png"
                     alt="Software development workspace"
                     className="w-full h-full object-cover"
                   />
